@@ -77,12 +77,12 @@
 				this.isLoding = true
 				this.$refs[formName].validate((valid)=>{
 					if (valid) {
-						this.$request.postJson(this.$api.login, this.loginForm).then( res => {
-							if(res.code == 'succes'){
+						// this.$request.postJson(this.$api.login, this.loginForm).then( res => {
+							// if(res.code == 'succes'){
 								sessionStorage.setItem('token','yes')
 								this.$router.replace('/index')
-							}
-						})
+							// }
+						// })
 					} else{
 						this.$message.error('请仔细核对所填信息')
 					}

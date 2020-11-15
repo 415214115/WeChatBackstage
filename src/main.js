@@ -10,6 +10,10 @@ import './nprogress' // permission control
 
 Vue.config.productionTip = false
 
+// import '../public/UEditor/ueditor.config.js'
+// 	import '../public/UEditor/ueditor.all.min.js'
+// 	import '../public/UEditor/lang/zh-cn/zh-cn.js'
+// 	import '../public/UEditor/ueditor.parse.min.js'
 
 // 全局请求or api
 import request from './utils/request'

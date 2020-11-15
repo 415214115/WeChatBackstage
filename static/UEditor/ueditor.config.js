@@ -18,13 +18,9 @@
      * 如果站点中有多个不在同一层级的页面需要实例化编辑器，且引用了同一UEditor的时候，此处的URL可能不适用于每个页面的编辑器。
      * 因此，UEditor提供了针对不同页面的编辑器可单独配置的根路径，具体来说，在需要实例化编辑器的页面最顶部写上如下代码即可。当然，需要令此处的URL等于对应的配置。
      * window.UEDITOR_HOME_URL = "/xxxx/xxxx/";
-     * http://local.gcwebapi.jiangzi.com/api/ueditor/server?action=config&&noCache=1581925080997
-     * http://tgcwebapi.jiangzi.com/api/ueditor/server?action=config&&noCache=1581925080997
-     * http://platapi.jiangzimcn.com
      */
-    // window.UEDITOR_HOME_URL = 'http://tgcwebapi.jiangzi.com/'
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-      // console.log(window.UEDITOR_HOME_URL)
+
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -32,14 +28,13 @@
 
         //为编辑器实例添加一个路径，这个不能被注释
         UEDITOR_HOME_URL: URL
-		// UEDITOR_HOME_URL: '/static/UEditor/'
 
         // 服务器统一请求接口路径
-        , serverUrl: URL + "api/ueditor/server"
+        , serverUrl: URL + "jsp/controller.jsp"
+
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的重新定义
         , toolbars: [[
-            // 'fullscreen',     //全屏
-             'source', '|', 'undo', 'redo', '|',
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
             'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
             'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
             'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
@@ -55,6 +50,7 @@
         //,labelMap:{
         //    'anchor':'', 'undo':''
         //}
+
         //语言配置项,默认是zh-cn。有需要的话也可以使用如下这样的方式来自动多语言切换，当然，前提条件是lang文件夹下存在对应的语言文件：
         //lang值也可以通过自动获取 (navigator.language||navigator.browserLanguage ||navigator.userLanguage).toLowerCase()
         //,lang:"zh-cn"
@@ -65,7 +61,7 @@
         //,theme:'default'
         //,themePath:URL +"themes/"
 
-        // ,zIndex : 900     //编辑器层级的基数,默认是900
+        //,zIndex : 900     //编辑器层级的基数,默认是900
 
         //针对getAllHtml方法，会在对应的head标签中增加该编码设置。
         //,charset:"utf-8"
@@ -78,7 +74,7 @@
 
         //,textarea:'editorValue' // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
-        ,initialContent:'请输入内容'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
+        //,initialContent:'欢迎使用ueditor!'    //初始化编辑器的内容,也可以通过textarea/script给值，看官网例子
 
         //,autoClearinitialContent:true //是否自动清除编辑器初始内容，注意：如果focus属性设置为true,这个也为真，那么编辑器一上来就会触发导致初始化的内容看不到了
 
@@ -255,9 +251,9 @@
 
         //wordCount
         //,wordCount:true          //是否开启字数统计
-        ,maximumWords:999999999999      //允许的最大字符数
+        //,maximumWords:10000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
-        ,wordCountMsg:'当前已输入 {#count} 个字符'   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
+        //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示
         //,wordOverFlowMsg:''    //<span style="color:red;">你输入的字符个数已经超出最大允许值，服务器可能会拒绝保存！</span>
 
@@ -291,7 +287,7 @@
 
         //autoFloatEnabled
         //是否保持toolbar的位置不动,默认true
-        ,autoFloatEnabled:false
+        //,autoFloatEnabled:true
         //浮动时工具栏距离浏览器顶部的高度，用于某些具有固定头部的页面
         //,topOffset:30
         //编辑器底部距离工具栏高度(如果参数大于等于编辑器高度，则设置无效)
