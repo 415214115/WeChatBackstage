@@ -36,7 +36,7 @@
 			</div>
 			<span slot="footer" class="dialog-footer">
 				<el-button @click="dialogVisible = false">取 消</el-button>
-				<el-button type="primary" :disabled="submitDisabled" @click="addBannerSubmit">确 定</el-button>
+				<el-button type="primary" @click="addBannerSubmit">确 定</el-button>
 			</span>
 		</el-dialog>
 	</el-card>
@@ -53,7 +53,8 @@
 				dialogVisible: false,
 				dialogTitle: '新增轮播图',
 				imageUrl: '',
-				submitDisabled: true
+				submitDisabled: true,
+				postData: []
 			}
 		},
 		mounted() {
@@ -81,7 +82,7 @@
 			// 	this.dialogVisible = false
 			// },
 			getBannerData() {
-				this.$request.get(this.$api.getLunBoTu).then(res => {
+				this.$request.get('/home/getHomeTu').then(res => {
 					if (res.code == 'succes') {
 						this.tableData = res.data
 					}
@@ -89,23 +90,30 @@
 			},
 			upLoadFile(file) {
 				let Files = file.file
-				let readFile = new FileReader()
-				readFile.readAsDataURL(Files)
-				readFile.onload = (e) => {
-					this.imageUrl = e.target.result
-				}
+				// let readFile = new FileReader()
+				// readFile.readAsDataURL(Files)
+				// readFile.onload = (e) => {
+				// 	this.imageUrl = e.target.result
+				// }
 				let formData = new FormData()
 				formData.append('fileList', Files)
-				this.$request.uploading(this.$api.upLoadImg, formData).then(res => {
+				this.$request.uploading('/upload/one/upLoadImg', formData).then(res => {
 					if (res.code == 'succes') {
-						this.dialogForm.imgs = res.data
-						this.submitDisabled = false
+						this.postData = []
+						this.imageUrl = res.data
+						this.postData.push(this.imageUrl)
 					}
 				})
+				// this.$request.uploading(this.$api.upLoadImg, formData).then(res => {
+				// 	if (res.code == 'succes') {
+				// 		this.dialogForm.imgs = res.data
+				// 		this.submitDisabled = false
+				// 	}
+				// })
 			},
 			addBannerSubmit() {
-				if (this.submitDisabled) return
-				this.$request.get(this.$api.addLunBo, this.dialogForm).then(res => {
+				// if (this.submitDisabled) return
+				this.$request.postJson('/home/addHomeTu', this.postData).then(res => {
 					if (res.code == 'succes') {
 						this.$message.success('添加成功')
 						this.dialogVisible = false
@@ -119,7 +127,7 @@
 					cancelButtonText: '取消',
 					type: 'warning'
 				}).then(() => {
-					this.$request.postJson(this.$api.deleteLunBo, {
+					this.$request.postJson('/home/delHomeTu', {
 						id: id
 					}).then(res => {
 						if (res.code == 'succes') {

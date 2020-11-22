@@ -8,9 +8,9 @@ Vue.use(VueRouter)
 // import module
 import {home} from './module/home.js' // 首页
 import {homePage} from './module/homePage.js' // 首页管理
-// import {caseManage} from './module/case.js' // 案例管理
-// import {information} from './module/information.js' // 资讯管理
-// import {shop} from './module/shop.js' // 店铺管理
+import {news} from './module/news.js' // 案例管理
+import {coupon} from './module/coupon.js' // 资讯管理
+import {shop} from './module/shop.js' // 店铺管理
 // import {product} from './module/product.js' // 产品管理
 // import {guarantee} from './module/guarantee.js' // 质保卡管理
 // import {price} from './module/price.js' // 价格管理
@@ -31,6 +31,9 @@ export const routes = [{
 		children: [
 			home,
 			homePage,
+			news,
+			coupon,
+			shop
 			// caseManage,
 			// information,
 			// shop,
