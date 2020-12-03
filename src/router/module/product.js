@@ -4,43 +4,25 @@ export const product = {
 	name: 'product',
 	component: Layout,
 	meta: {
-		title: '产品管理',
+		title: '审核管理',
 		icon: 'el-icon-s-custom'
 	},
 	children: [
 		{
-			path: "index",
-			name: "productindex",
-			component: () => import('@/views/product/car/index.vue'),
+			path: "card",
+			name: "card",
+			component: () => import('@/views/audit/card.vue'),
 			meta: {
-				title: '车辆品牌管理',
+				title: '身份证审核',
 				icon: ''
 			}
 		},
 		{
 			path: "version",
 			name: "version",
-			component: () => import('@/views/product/version/index.vue'),
+			component: () => import('@/views/audit/accumulate.vue'),
 			meta: {
-				title: '车辆型号管理',
-				icon: ''
-			}
-		},
-		{
-			path: "series",
-			name: "series",
-			component: () => import('@/views/product/series/index.vue'),
-			meta: {
-				title: '产品系列管理',
-				icon: ''
-			}
-		},
-		{
-			path: "colour",
-			name: "colour",
-			component: () => import('@/views/product/colour/index.vue'),
-			meta: {
-				title: '车辆颜色管理',
+				title: '积攒管理',
 				icon: ''
 			}
 		}

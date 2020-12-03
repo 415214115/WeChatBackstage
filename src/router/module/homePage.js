@@ -17,14 +17,14 @@ export const homePage = {
 				icon: ''
 			}
 		},
-		{
-			path: "UEditorTest",
-			name: "UEditorTest",
-			component: () => import('@/views/homePage/UEditorTest/index.vue'),
-			meta: {
-				title: 'UEditor编辑器测试',
-				icon: ''
-			}
-		},
+		// {
+		// 	path: "UEditorTest",
+		// 	name: "UEditorTest",
+		// 	component: () => import('@/views/homePage/UEditorTest/index.vue'),
+		// 	meta: {
+		// 		title: 'UEditor编辑器测试',
+		// 		icon: ''
+		// 	}
+		// },
 	]
 }
