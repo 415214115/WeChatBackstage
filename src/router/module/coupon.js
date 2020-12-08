@@ -8,15 +8,15 @@ export const coupon = {
 		icon: 'el-icon-menu'
 	},
 	children: [
-		// {
-		// 	path: "coupontype",
-		// 	name: "coupontype",
-		// 	component: () => import('@/views/coupon/couponType/index.vue'),
-		// 	meta: {
-		// 		title: '优惠券类型',
-		// 		icon: ''
-		// 	}
-		// },
+		{
+			path: "couponsetting",
+			name: "couponsetting",
+			component: () => import('@/views/coupon/couponsetting/index.vue'),
+			meta: {
+				title: '优惠券配置',
+				icon: ''
+			}
+		},
 		{
 			path: "couponlist",
 			name: "couponlist",

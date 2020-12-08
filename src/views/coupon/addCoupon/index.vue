@@ -87,7 +87,9 @@
 					id: '',
 					type: '',
 					pageNum: 1,
-					pageSize: 10
+					pageSize: 10,
+					lat: 0,
+					lon: 0
 				},
 				shopList: '',
 				loading: false

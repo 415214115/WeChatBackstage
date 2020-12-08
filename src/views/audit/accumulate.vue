@@ -3,26 +3,41 @@
 		<div slot="header" class="clearfix">
 			<span>积攒审核</span>
 		</div>
-		<el-table :data="tableData" border style="width: 100%">
-			<el-table-column prop="date" label="用户"></el-table-column>
+		<el-form :inline="true" :model="queryData" class="demo-form-inline">
+			<!-- <el-form-item label="店铺名称">
+				<el-input v-model="queryData.name" placeholder="店铺名称"></el-input>
+			</el-form-item> -->
+			<el-form-item label="审核类型">
+				<el-select v-model="queryData.status" placeholder="请选择">
+					<el-option label="审核中" value="1"></el-option>
+					<el-option label="通过" value="2"></el-option>
+					<el-option label="驳回" value="3"></el-option>
+				</el-select>
+			</el-form-item>
+			<el-form-item>
+				<el-button type="primary" icon="el-icon-search" @click="queryDataGetShopList">查询</el-button>
+			</el-form-item>
+		</el-form>
+		<el-table :data="pageData.list" border style="width: 100%">
+			<el-table-column prop="name" label="用户"></el-table-column>
+			<!-- <el-table-column prop="idCard" label="身份证号码"></el-table-column> -->
 			<el-table-column prop="date" label="积攒证明">
 				<template slot-scope="scope">
 					<div class="cardImg">
-						<el-image class="bannerImage" :src="$globalData.defaultImg" :preview-src-list="['https://wangpic.oss-cn-beijing.aliyuncs.com/APP/1606663162881.jpg']" fit="cover"></el-image>
+						<el-image class="bannerImage" :src="scope.row.img?scope.row.img:$globalData.defaultImg" :preview-src-list="[scope.row.img]"
+						 fit="cover"></el-image>
 						<span class="look">点击图片查看大图</span>
 					</div>
 				</template>
 			</el-table-column>
-			<!-- <el-table-column prop="name" label="描述"></el-table-column> -->
-			<!-- <el-table-column prop="address" label="创建时间"></el-table-column> -->
 			<el-table-column label="操作" width="240">
 				<template slot-scope="scope">
-					<el-button type="text">审核通过</el-button>
-					<el-button type="text">审核不通过</el-button>
+					<el-button type="text" :disabled="queryData.status=='1'?false:true" @click="pass(scope.row)">审核通过</el-button>
+					<el-button type="text" :disabled="queryData.status=='1'?false:true" @click="notPass(scope.row)">审核不通过</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
-		<paginaTion></paginaTion>
+		<paginaTion :totalNum="pageData.total" @paginaClick="paginaClick"></paginaTion>
 	</el-card>
 </template>
 
@@ -30,16 +45,75 @@
 	export default {
 		data() {
 			return {
+				pageData: '',
 				tableData: [{}],
-				
+				queryData: {
+					status: '1',
+					type: '2',
+					pageNum: 1,
+					pageSize: $globalData.pageSize
+				}
 			}
 		},
 		mounted() {
-			
+			this.getPageData()
 		},
-		
 		methods: {
-			
+			paginaClick(val) {
+				this.queryData.pageNum = val
+				this.getPageData()
+			},
+			queryDataGetShopList() {
+				this.queryData.pageNum = 1
+				this.getPageData()
+			},
+			getPageData() {
+				this.$request.postJson('/discounts/selectSHAuditList', this.queryData).then(res => {
+					if (res.code == 'succes') {
+						this.pageData = res.data
+					}
+				})
+			},
+			notPass(item) {
+				// 审核不通过
+				this.$prompt('请输入不通过原因', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					inputPattern: /\s*\S+?/,
+					inputErrorMessage: '不能为空',
+				}).then(({
+					value
+				}) => {
+					this.$request.postJson('/discounts/senHeAuditCoupons', {
+						status: '3',
+						id: item.id,
+						message: value
+					}).then(res => {
+						if (res.code == 'succes') {
+							this.$message.success('操作成功')
+							this.getPageData()
+						}
+					})
+				})
+			},
+			pass(item) {
+				// 审核通过
+				this.$confirm('确认通过', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$request.postJson('/discounts/senHeAuditCoupons', {
+						status: '2',
+						id: item.id
+					}).then(res => {
+						if (res.code == 'succes') {
+							this.$message.success('操作成功')
+							this.getPageData()
+						}
+					})
+				})
+			}
 		}
 	}
 </script>
@@ -77,12 +151,14 @@
 		height: 100px;
 		display: block;
 	}
-	.look{
+
+	.look {
 		color: #8c939d;
 		font-size: 12px;
 		margin-left: 10px;
 	}
-	.cardImg{
+
+	.cardImg {
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;

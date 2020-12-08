@@ -59,6 +59,8 @@
 					id: '',
 					type: '',
 					pageNum: 1,
+					lat: 0,
+					lon: 0,
 					pageSize: $globalData.pageSize
 				},
 				shopTypeList: '',

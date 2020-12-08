@@ -12,7 +12,8 @@ import {
 export const http = axios.create({
 	// https://kwkxcx.com
 	// baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
-	baseURL: 'https://chenzhouhuang.utools.club', // url = base url + request url 
+	// baseURL: 'http://chenzhouhuang.cn1.utools.club', // url = base url + request url 
+	baseURL: 'http://47.114.59.188/coupon', // url = base url + request url
 	// baseURL: 'http://kwkxcx.com:8095', // url = base url + request url
 	// withCredentials: true,
 	headers: {
@@ -47,7 +48,7 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
 	const res = response.data
 	// console.log(response)
-	if(res.code != 'succes'){
+	if(res.code != 'succes' && response.config.url != '/excel/excelTXList'){
 		Message.error(res.msg)
 		return Promise.reject(res)
 		// errorHandle(res.code, res.message)
