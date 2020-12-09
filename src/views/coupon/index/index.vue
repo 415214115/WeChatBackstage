@@ -1,9 +1,9 @@
 <template>
 	<el-card>
 		<div slot="header" class="clearfix">
-			<span>优惠券</span>
-			<el-button style="float: right; padding: 3px 0;margin-left: 10px;" type="text" @click="exportcoupon">导出优惠券</el-button>
-			<el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('/coupon/addcoupon')">新增优惠券</el-button>
+			<span>代金券订单</span>
+			<el-button style="float: right; padding: 3px 0;margin-left: 10px;" type="text" @click="exportcoupon">导出代金券</el-button>
+			<!-- <el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('/coupon/addcoupon')">新增代金券</el-button> -->
 		</div>
 		<el-form :inline="true" :model="queryData" class="demo-form-inline">
 			<el-form-item label="店铺名称">
@@ -13,10 +13,10 @@
 					</el-option>
 				</el-select>
 			</el-form-item>
-			<!-- <el-form-item label="优惠券名称">
+			<!-- <el-form-item label="代金券名称">
 				<el-input v-model="queryData.name" placeholder="店铺名称"></el-input>
 			</el-form-item> -->
-			<el-form-item label="优惠券类型">
+			<el-form-item label="代金券类型">
 				<el-select v-model="queryData.type" placeholder="请选择">
 					<el-option label="全部" value=""></el-option>
 					<el-option label="生日券" value="1"></el-option>
@@ -56,7 +56,7 @@
 		</el-table>
 		<paginaTion :totalNum="pageTotal" @paginaClick="paginaClick"></paginaTion>
 
-		<el-dialog title="导出优惠券" :visible.sync="dialogVisible">
+		<el-dialog title="导出代金券" :visible.sync="dialogVisible">
 			<el-form :model="dialogForm">
 				<el-form-item label="店铺名称" label-width="100px">
 					<el-select v-model="dialogForm.id" filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
@@ -65,7 +65,7 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="优惠券类型" label-width="100px">
+				<el-form-item label="代金券类型" label-width="100px">
 					<el-select v-model="dialogForm.type" placeholder="请选择">
 						<el-option label="全部" value=""></el-option>
 						<el-option label="生日券" value="1"></el-option>
@@ -173,7 +173,7 @@
 				})
 			},
 			deleteRow(id) {
-				this.$confirm('此操作将永久删除该优惠券, 是否继续?', '提示', {
+				this.$confirm('此操作将永久删除该代金券, 是否继续?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'

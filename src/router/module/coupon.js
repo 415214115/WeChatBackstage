@@ -22,7 +22,16 @@ export const coupon = {
 			name: "couponlist",
 			component: () => import('@/views/coupon/index/index.vue'),
 			meta: {
-				title: '优惠券',
+				title: '代金券订单',
+				icon: ''
+			}
+		},
+		{
+			path: "record",
+			name: "record",
+			component: () => import('@/views/coupon/record/index.vue'),
+			meta: {
+				title: '领取/购买记录',
 				icon: ''
 			}
 		},

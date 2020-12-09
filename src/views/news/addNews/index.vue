@@ -64,7 +64,7 @@
 			}
 		},
 		mounted() {
-			// this.getpagelist()
+			this.getpagelist()
 		},
 		methods: {
 			getpagelist(){
