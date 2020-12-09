@@ -48,7 +48,7 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
 	const res = response.data
 	// console.log(response)
-	if(res.code != 'succes' && response.config.url != '/excel/excelTXList'){
+	if(res.code != 'succes' && response.config.url != '/excel/excelTXList' && response.config.url != '/excel/excelYHJList'){
 		Message.error(res.msg)
 		return Promise.reject(res)
 		// errorHandle(res.code, res.message)

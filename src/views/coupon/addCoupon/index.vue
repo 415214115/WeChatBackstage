@@ -32,6 +32,16 @@
 					<el-option label="免费领取" value="4"></el-option>
 				  </el-select>
 			</el-form-item>
+			<!-- <el-form-item label="积攒券版本" v-if="postData.couponType == '2'">
+				<el-input-number v-model="postData.money"  label=""></el-input-number>
+			</el-form-item> -->
+			<!-- <el-form-item label="拼团成功返利(百分比)" v-if="postData.couponType == '3'">
+				<el-input-number v-model="postData.money"  label=""></el-input-number>
+				%
+			</el-form-item>
+			<el-form-item label="拼团结束时间(小时)" v-if="postData.couponType == '3'">
+				<el-input-number v-model="postData.money"  label=""></el-input-number>
+			</el-form-item> -->
 			<el-form-item label="金额">
 				<el-input-number v-model="postData.money" :min="1" label=""></el-input-number>
 				元
@@ -92,13 +102,26 @@
 					lon: 0
 				},
 				shopList: '',
-				loading: false
+				loading: false,
+				setting: ''
 			}
 		},
 		mounted() {
-			
+			this.getBanben()
 		},
 		methods: {
+			getBanben(){
+				this.$request.get('/back/type/getVersionList').then(res=>{
+					if(res.code == 'succes'){
+						this.setting = res.data
+						console.log(res)
+					}
+				})
+			},
+			
+			
+			
+			
 			shopfocus(e){
 				this.postData.shopId = ''
 				this.getshopList()

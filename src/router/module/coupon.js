@@ -8,15 +8,15 @@ export const coupon = {
 		icon: 'el-icon-menu'
 	},
 	children: [
-		{
-			path: "couponsetting",
-			name: "couponsetting",
-			component: () => import('@/views/coupon/couponsetting/index.vue'),
-			meta: {
-				title: '优惠券配置',
-				icon: ''
-			}
-		},
+		// {
+		// 	path: "couponsetting",
+		// 	name: "couponsetting",
+		// 	component: () => import('@/views/coupon/couponsetting/index.vue'),
+		// 	meta: {
+		// 		title: '优惠券配置',
+		// 		icon: ''
+		// 	}
+		// },
 		{
 			path: "couponlist",
 			name: "couponlist",
@@ -26,15 +26,15 @@ export const coupon = {
 				icon: ''
 			}
 		},
-		{
-			path: "record",
-			name: "record",
-			component: () => import('@/views/coupon/record/index.vue'),
-			meta: {
-				title: '领取/购买记录',
-				icon: ''
-			}
-		},
+		// {
+		// 	path: "record",
+		// 	name: "record",
+		// 	component: () => import('@/views/coupon/record/index.vue'),
+		// 	meta: {
+		// 		title: '领取/购买记录',
+		// 		icon: ''
+		// 	}
+		// },
 		{
 			path: "addcoupon",
 			name: "addcoupon",

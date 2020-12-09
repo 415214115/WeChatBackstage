@@ -6,13 +6,13 @@
 			<el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('/coupon/addcoupon')">新增优惠券</el-button>
 		</div>
 		<el-form :inline="true" :model="queryData" class="demo-form-inline">
-			<!-- <el-form-item label="店铺名称">
+			<el-form-item label="店铺名称">
 				<el-select v-model="queryData.id" filterable remote reserve-keyword placeholder="请输入关键词" :remote-method="remoteMethod"
 				 :loading="loading" @focus="shopfocus">
 					<el-option v-for="item in shopList" :key="item.id" :label="item.name" :value="item.id">
 					</el-option>
 				</el-select>
-			</el-form-item> -->
+			</el-form-item>
 			<!-- <el-form-item label="优惠券名称">
 				<el-input v-model="queryData.name" placeholder="店铺名称"></el-input>
 			</el-form-item> -->

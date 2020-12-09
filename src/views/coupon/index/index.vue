@@ -3,7 +3,7 @@
 		<div slot="header" class="clearfix">
 			<span>代金券订单</span>
 			<el-button style="float: right; padding: 3px 0;margin-left: 10px;" type="text" @click="exportcoupon">导出代金券</el-button>
-			<!-- <el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('/coupon/addcoupon')">新增代金券</el-button> -->
+			<el-button style="float: right; padding: 3px 0" type="text" @click="$router.push('/coupon/addcoupon')">新增代金券</el-button>
 		</div>
 		<el-form :inline="true" :model="queryData" class="demo-form-inline">
 			<el-form-item label="店铺名称">
@@ -75,23 +75,17 @@
 					</el-select>
 				</el-form-item>
 				<el-form-item label="开始时间" label-width="100px">
-					<el-date-picker
-					      v-model="dialogForm.value1"
-					      type="date"
-					      placeholder="选择日期">
-					    </el-date-picker>
+					<el-date-picker v-model="dialogForm.beginTime" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="timestamp">
+					</el-date-picker>
 				</el-form-item>
 				<el-form-item label="结束时间" label-width="100px">
-					<el-date-picker
-					      v-model="dialogForm.value1"
-					      type="date"
-					      placeholder="选择日期">
-					    </el-date-picker>
+					<el-date-picker v-model="dialogForm.endTime" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="timestamp">
+					</el-date-picker>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click="dialogVisible = false">取 消</el-button>
-				<el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+				<el-button type="primary" @click="submits">确 定</el-button>
 			</div>
 		</el-dialog>
 
@@ -105,7 +99,10 @@
 			return {
 				tableData: [],
 				dialogForm: {
-					
+					id: '',
+					type: '',
+					beginTime: '',
+					endTime: ''
 				},
 				dialogVisible: false,
 				queryData: {
@@ -118,20 +115,47 @@
 				loading: false,
 				shopList: '',
 				pageTotal: 0,
-				
+
 			}
 		},
 		mounted() {
 			this.getcouponlist()
 		},
 		watch: {
-			dialogVisible(newData){
-				if(!newData){
-					console.log(newData)
+			dialogVisible(newData) {
+				if (!newData) {
+					this.dialogForm.id = ''
+					this.dialogForm.type = ''
+					this.dialogForm.beginTime = ''
+					this.dialogForm.endTime = ''
 				}
 			}
 		},
 		methods: {
+			submits() {
+				this.$request.download('/excel/excelYHJList', this.dialogForm).then(res => {
+					// console.log(res)
+					const blob = res;
+					const reader = new FileReader();
+					reader.readAsDataURL(blob);
+						// console.log(reader)
+					reader.onload = (e) => {
+						const a = document.createElement('a');
+						a.download = Date.parse(new Date()) + '.xlsx';
+						// 后端设置的文件名称在res.headers的 "content-disposition": "form-data; name=\"attachment\"; filename=\"20181211191944.zip\"",
+						a.href = e.target.result;
+						document.body.appendChild(a);
+						a.click();
+						document.body.removeChild(a);
+						this.$message.success('操作成功')
+						// this.getPageData()
+						this.dialogVisible =  false
+					}
+				}).catch(e => {
+					// console.log(e)
+					this.$message.error('下载失败')
+				})
+			},
 			exportcoupon() {
 				this.dialogVisible = true
 			},
