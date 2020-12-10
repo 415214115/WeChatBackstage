@@ -4,7 +4,7 @@ export const guarantee = {
 	name: 'guarantee',
 	component: Layout,
 	meta: {
-		title: '提现管理',
+		title: '账单管理',
 		icon: 'el-icon-s-management'
 	},
 	children: [
@@ -13,7 +13,15 @@ export const guarantee = {
 			name: "withdraw",
 			component: () => import('@/views/withdraw/index.vue'),
 			meta: {
-				title: '提现',
+				title: '提现列表',
+				icon: ''
+			}
+		},{
+			path: "purchase",
+			name: "purchase",
+			component: () => import('@/views/withdraw/purchase.vue'),
+			meta: {
+				title: '购买列表',
 				icon: ''
 			}
 		}
