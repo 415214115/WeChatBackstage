@@ -46,8 +46,8 @@
 			}
 			return {
 				loginForm: {
-					phone: '123',
-					password: '123'
+					phone: '',
+					password: ''
 				},
 				loginRules: {
 					phone: [{
